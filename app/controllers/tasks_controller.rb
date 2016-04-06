@@ -6,7 +6,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.create(task_params)
-    redirect_to root_path
+    @tasks = Task.all
   end
 
   private
