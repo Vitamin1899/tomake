@@ -16,7 +16,7 @@
           %td.text-info= task.created_at
           %td.text-success= task.completed
           %td
-            = link_to task_path(task), remote: true, method: :delete, data: {confirm: "Are you sure you want to delete task #{task.title}?"} do
-              %i.icon-edit
-            = link_to edit_task_path(task), remote: true do
-              %i.icon-edit
+            = link_to task_path(task), class: 'label label-danger', remote: true, method: :delete, data: {confirm: "Are you sure you want to delete task #{task.title}?"} do
+              Delete
+            = link_to edit_task_path(task), class: 'label label-info', remote: true do
+              Edit
