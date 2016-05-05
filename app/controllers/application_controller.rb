@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :authenticate_user!
+  before_filter :ensure_signup_complete, only: [:new, :create, :update, :destroy]
 
   layout :layout_by_controller
 
@@ -10,5 +11,13 @@ class ApplicationController < ActionController::Base
 
   def layout_by_controller
     devise_controller? ? 'devise' : 'application'
+  end
+
+  def ensure_signup_complete
+    return if action_name == 'finish_signup'
+
+    if current_user && !current_user.email_verified?
+      redirect_to finish_signup_path(current_user)
+    end
   end
 end
